@@ -176,30 +176,9 @@ Contributors
 Release Notes
 -------------
 
-**3.1.1**
+**master**
 
-* Fixed resource duplication bug.
-
-**3.1.0**
-
-* Added default_volume_type as a Cinder API parameter.
-* Added parameter for endpoint procols.
-* Deprecated glance_api_version.
-* Added support for VMDK.
-* Added support for Cinder multi backend.
-* Added support for https authentication endpoints.
-* Replaced pip with native package manager (VMDK).
-
-**3.0.0**
-
-* Major release for OpenStack Havana.
-* Added support for Solid Fire.
-* Added support for ceilometer.
-* Added Ceph backend support.
-* Added Glance support.
-* Improved Cinder backup support.
-* Fixed bug for cinder-volume requirement.
-* Fixed default Swift URL for backup service.
+* Added support for multiple concurent backends.
 
 **2.2.0**
 
