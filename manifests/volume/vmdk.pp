@@ -45,7 +45,6 @@
 #   (optional) The name for the folder in the VC datacenter that will contain cinder volumes.
 #   Defaults to 'cinder-volumes'.
 #
-
 class cinder::volume::vmdk(
   $host_ip,
   $host_username,
@@ -76,7 +75,8 @@ class cinder::volume::vmdk(
     }
   }
 
-  package{ 'python-suds':
+  package { 'suds':
     ensure   => present,
+    provider => pip
   }
 }
