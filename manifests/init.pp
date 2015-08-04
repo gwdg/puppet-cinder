@@ -227,7 +227,7 @@
 # [*lock_path*]
 #   (optional) Where to store lock files. This directory must be writeable
 #   by the user executing the agent
-#   Defaults to: /var/lock/cinder
+#   Defaults to: $::cinder::params::lock_path
 #
 # === Deprecated Parameters
 #
@@ -288,7 +288,7 @@ class cinder (
   $default_availability_zone          = false,
   $enable_v1_api                      = true,
   $enable_v2_api                      = true,
-  $lock_path                          = '/var/lock/cinder',
+  $lock_path                          = $::cinder::params::lock_path,
   # DEPRECATED PARAMETERS
   $mysql_module                       = undef,
 ) {
