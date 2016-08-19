@@ -321,6 +321,14 @@ class cinder::api (
 
     # we need to make sure cinder-api/eventlet is stopped before trying to start apache
     Service['cinder-api'] -> Service[$service_name]
+
+    # Also use policy_rcd to prevent service starts on package installation / updates in the future
+    policy_rcd { 'cinder-api':
+      ensure   => present,
+      set_code => '101',
+      before   => Package['cinder-api'],
+    }
+
   } else {
     fail('Invalid service_name. Either cinder-api/openstack-cinder-api for running as a standalone service, or httpd for being run by a httpd server')
   }
