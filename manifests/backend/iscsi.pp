@@ -78,27 +78,29 @@ define cinder::backend::iscsi (
 
   case $iscsi_helper {
     'tgtadm': {
-      package { 'tgt':
-        ensure => present,
-        name   => $::cinder::params::tgt_package_name,
-        tag    => 'cinder-support-package',
-      }
-
-      if($::osfamily == 'RedHat') {
-        file_line { 'cinder include':
-          path    => '/etc/tgt/targets.conf',
-          line    => "include ${volumes_dir}/*",
-          match   => '#?include /',
-          require => Anchor['cinder::install::end'],
-          notify  => Anchor['cinder::service::begin'],
+      if ! defined(Package['tgt']) {
+        package { 'tgt':
+          ensure => present,
+          name   => $::cinder::params::tgt_package_name,
+          tag    => 'cinder-support-package',
         }
-      }
 
-      service { 'tgtd':
-        ensure => running,
-        name   => $::cinder::params::tgt_service_name,
-        enable => true,
-        tag    => 'cinder-support-service',
+        if($::osfamily == 'RedHat') {
+          file_line { 'cinder include':
+            path    => '/etc/tgt/targets.conf',
+            line    => "include ${volumes_dir}/*",
+            match   => '#?include /',
+            require => Anchor['cinder::install::end'],
+            notify  => Anchor['cinder::service::begin'],
+          }
+        }
+
+        service { 'tgtd':
+          ensure => running,
+          name   => $::cinder::params::tgt_service_name,
+          enable => true,
+          tag    => 'cinder-support-service',
+        }
       }
     }
 
